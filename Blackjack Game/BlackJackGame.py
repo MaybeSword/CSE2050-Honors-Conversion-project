@@ -1,0 +1,3 @@
+def Blackjack():
+    """fire"""
+    pass
