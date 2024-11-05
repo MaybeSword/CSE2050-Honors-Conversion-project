@@ -9,8 +9,8 @@ class BlackjackController:
 
     def player_action(self, action):
         if action == "deal":
-            pass  # Logic to deal cards
+            pass  
         elif action == "hit":
-            pass  # Logic for player hitting
+            pass  
         elif action == "stand":
-            pass  # Logic for player standing
+            pass  
