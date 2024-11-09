@@ -2,6 +2,9 @@ from blackjack_game import BlackjackGame
 from blackjack_gui import BlackjackGUI
 
 class BlackjackController:
+    """
+    Controller class for BlackjackGame
+    """
     def __init__(self):
         self.game = BlackjackGame()
         self.gui = BlackjackGUI(self)
