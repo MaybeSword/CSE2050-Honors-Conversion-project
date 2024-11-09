@@ -3,5 +3,9 @@ class Card:
         self.rank = rank
         self.suit = suit
 
+    def __repr__(self):
+        return f"{self.rank}{self.suit.upper()[0]}"
+
     def __str__(self):
-        pass
+        return f"{self.rank} of {self.suit}"
+    

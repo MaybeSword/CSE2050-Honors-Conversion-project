@@ -17,3 +17,7 @@ class BlackjackController:
             pass  
         elif action == "stand":
             pass  
+        elif action == "double":
+            pass
+        elif action == "split":
+            pass

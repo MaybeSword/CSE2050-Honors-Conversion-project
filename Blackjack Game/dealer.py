@@ -6,4 +6,6 @@ class Dealer:
         self.hand = Hand()
 
     def play_turn(self, deck):
-        pass
+        while self.hand.calculate_value() <= 16:
+            # dealer hit in some way implemented
+            pass

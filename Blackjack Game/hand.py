@@ -5,10 +5,27 @@ class Hand:
         self.cards = []
 
     def add_card(self, card):
-        pass
+        self.cards.append(card)
 
     def calculate_value(self):
-        pass
+        val = 0
+        L_nums = [2, 3, 4, 5, 6, 7, 8, 9, 10]
+        face_cards = ['J', 'Q', 'K']
+        for card in self.cards:
+            if card.rank in L_nums:
+                val += card.rank
+            elif card.rank in face_cards:
+                val += 10
+            else: 
+                val += 11
+                if val > 21:
+                    val -= 10
+        return val
 
     def split(self):
-        pass
+        newHand = Hand()
+        newHand.add_card(self.cards[0])
+        self.cards.pop(1)
+        return newHand, self
+
+
