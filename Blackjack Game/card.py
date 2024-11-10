@@ -1,5 +1,6 @@
 class Card:
     def __init__(self, rank, suit, faceup = True):
+        '''Initializes a card object'''
         self.rank = rank
         self.suit = suit
         self.faceup = faceup
