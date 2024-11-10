@@ -1,11 +1,14 @@
 class Card:
-    def __init__(self, rank, suit):
+    def __init__(self, rank, suit, faceup = True):
         self.rank = rank
         self.suit = suit
+        self.faceup = faceup
 
     def __repr__(self):
-        return f"{self.rank}{self.suit.upper()[0]}"
+        if self.faceup: return f"{self.rank}{self.suit.upper()[0]}"
+        else: return "???"
 
     def __str__(self):
-        return f"{self.rank} of {self.suit}"
+        if self.faceup: return f"{self.rank} of {self.suit}"
+        else: return "??? of ???"
     

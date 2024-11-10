@@ -24,8 +24,10 @@ class Hand:
 
     def split(self):
         newHand = Hand()
-        newHand.add_card(self.cards[0])
+        newHand.add_card(self.cards[1])
         self.cards.pop(1)
         return newHand, self
 
+    def __repr__(self):
+        return f"hand: {self.cards}"
 

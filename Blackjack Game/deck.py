@@ -4,6 +4,11 @@ from hand import Hand
 
 class Deck:
     def __init__(self):
+        self.cards = []
+        self.newDeck()
+        
+    
+    def newDeck(self):
         L_suits = ['clubs', 'spades', 'hearts', 'diamonds']
         L_ranks = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K']
         self.cards = []
@@ -13,16 +18,21 @@ class Deck:
         random.shuffle(self.cards)
         self._len = 52
 
+
     def __len__(self):
         return self._len
 
-    def deal(self):
+    def deal(self, faceup=True):
         Card_dealt = self.cards[len(self) - 1]
+        if not faceup:
+            Card_dealt.faceup = False
         self.cards.pop(len(self)-1)
         self._len -= 1
+        if self._len < 10:
+            self.newDeck()
         return Card_dealt
 
-
+#tests
 if __name__ == "__main__":
     D1 = Deck()
     dealer_hand = Hand()
@@ -36,6 +46,13 @@ if __name__ == "__main__":
         print(f"dealer card: {card}")
     for card in player_hand.cards:
         print(f"player card: {card}")
-
     print(dealer_hand.calculate_value())
     print(player_hand.calculate_value())
+
+    player_hand = Hand()
+    player_hand.cards = [Card(8, 'clubs'), Card(8, 'diamonds')]
+    new_hand1, new_hand2 = player_hand.split()
+    new_hand1.add_card(D1.deal())
+    new_hand2.add_card(D1.deal())
+    print(new_hand1)
+    print(new_hand2)
