@@ -8,9 +8,11 @@ class Player:
         self._bet = 0
         self.busted = False
 
-    def bet(self, numm):
+    def bet(self, num):
         if self._bet > self.balance:
             raise RuntimeError("Not enough money!")
+        else:
+            self.bet == num
 
     def is_busted(self):
         return self.busted

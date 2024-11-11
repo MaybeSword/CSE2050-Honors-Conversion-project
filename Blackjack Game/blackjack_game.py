@@ -11,6 +11,10 @@ class BlackjackGame:
         self.dealer_hand = Hand()
         self.player_hand = Hand()
         self.dealt_cards = []
+    
+    def before_game(self):
+        #prompt player for bet
+        self.player.bet(500) #arbitrary value
 
     def start_game(self):
         self.dealer_hand.add_card(self.deck.deal(faceup=False))
