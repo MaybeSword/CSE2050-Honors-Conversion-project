@@ -6,6 +6,7 @@ class Dealer:
     def __init__(self, player=Player):
         self.player = player
         self.busted = False
+        self.blackjack = False
 
     def is_busted(self):
         return self.busted   
@@ -16,6 +17,8 @@ class Dealer:
             hand.add_card(deck.deal())
         if hand.calculate_value() > 21:
             self.busted = True
+        if len(hand.cards) == 2 and hand.calculate_value() == 21:
+            self.blackjack = True
         
         
     

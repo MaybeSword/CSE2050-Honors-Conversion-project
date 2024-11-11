@@ -7,6 +7,7 @@ class Player:
         self.balance = balance
         self._bet = 0
         self.busted = False
+        self.blackjack = False
 
     def bet(self, num):
         if self._bet > self.balance:
@@ -14,12 +15,22 @@ class Player:
         else:
             self.bet == num
 
+    def update_balance(self, loss=bool, blackjack=False):
+        if blackjack:
+            self.balance += int(1.5*self.bet)
+        elif loss:
+            self.balance -= self.bet
+        else:
+            self.balance += self.bet
+
     def is_busted(self):
         return self.busted
 
     def play(self, hand, deck=Deck):
         """playing manually"""
         #actions stand, hit, double, split if ranks equal
+        if len(hand.cards) == 2 and hand.calculate_value() == 21:
+            self.blackjack = True
         if hand.calculate_value() > 21:
             self.busted = True
 

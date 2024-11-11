@@ -31,19 +31,32 @@ class BlackjackGame:
         
 
     def check_winner(self):
-        if self.dealer_hand.calculate_value() > self.player_hand.calculate_value():
-            if not self.dealer_hand.is_busted():
+        if self.player.blackjack:
+            if self.dealer.blackjack:
+                #push
+                pass
+            else:
+                self.player.update_balance(loss=True, blackjack=True)
+        elif self.dealer.blackjack and self.player_hand.calculate_value() == 21:
+            #dealer wins
+            self.player.update_balance(loss=True)
+        elif self.dealer_hand.calculate_value() > self.player_hand.calculate_value():
+            if not self.dealer.is_busted():
                 #dealer wins
+                self.player.update_balance(loss=True)
                 pass
             else:
                 #player wins
+                self.player.update_balance(loss=False)
                 pass
         elif self.dealer_hand.calculate_value() < self.player_hand.calculate_value():
-            if not self.player_hand.isbusted():
+            if not self.player.is_busted():
                 #player wins
+                self.player.update_balance(loss=False)
                 pass
             else: 
                 # dealer wins
+                self.player.update_balance(loss=True)
                 pass
         else:
             #push
@@ -78,19 +91,32 @@ class BlackjackGameCC:
         
 
     def check_winner(self):
-        if self.dealer_hand.calculate_value() > self.player_hand.calculate_value():
-            if not self.dealer_hand.is_busted():
+        if self.player.blackjack:
+            if self.dealer.blackjack:
+                #push
+                pass
+            else:
+                self.player.update_balance(loss=True, blackjack=True)
+        elif self.dealer.blackjack and self.player_hand.calculate_value() == 21:
+            #dealer wins
+            self.player.update_balance(loss=True)
+        elif self.dealer_hand.calculate_value() > self.player_hand.calculate_value():
+            if not self.dealer.is_busted():
                 #dealer wins
+                self.player.update_balance(loss=True)
                 pass
             else:
                 #player wins
+                self.player.update_balance(loss=False)
                 pass
         elif self.dealer_hand.calculate_value() < self.player_hand.calculate_value():
-            if not self.player_hand.isbusted():
+            if not self.player.is_busted():
                 #player wins
+                self.player.update_balance(loss=False)
                 pass
             else: 
                 # dealer wins
+                self.player.update_balance(loss=True)
                 pass
         else:
             #push
