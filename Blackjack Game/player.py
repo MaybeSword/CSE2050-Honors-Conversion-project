@@ -5,11 +5,21 @@ class Player:
     def __init__(self, balance=0):
         self.hand = Hand()
         self.balance = balance
+        self._bet = 0
+        self.busted = False
 
-    def play(self, deck=Deck):
+    def bet(self, numm):
+        if self._bet > self.balance:
+            raise RuntimeError("Not enough money!")
+
+    def os_busted(self):
+        return self.busted
+
+    def play(self, hand, deck=Deck):
         """playing manually"""
         #actions stand, hit, double, split if ranks equal
-        pass
+        if hand.calculate_value() > 21:
+            self.busted = True
 
     def count_cards_play(self):
         # 2 - 6  is plus1, 10 - A, is minus1, 7-9 neutral

@@ -14,9 +14,10 @@ class Deck:
         self.cards = []
         for rank in L_ranks:
             for suit in L_suits:
-                self.cards.append(Card(rank, suit))
+                for i in range(6):
+                    self.cards.append(Card(rank, suit))
         random.shuffle(self.cards)
-        self._len = 52
+        self._len = 312
 
 
     def __len__(self):
@@ -56,3 +57,9 @@ if __name__ == "__main__":
     new_hand2.add_card(D1.deal())
     print(new_hand1)
     print(new_hand2)
+    D2 = Deck()
+    dic1 = {'A':0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0, 9:0, 10:0, 'J':0, 'Q':0, 'K':0}
+    print(len(D2))
+    for card in D2.cards:
+        dic1[card.rank] +=1
+    print(dic1)
