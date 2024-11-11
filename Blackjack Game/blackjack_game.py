@@ -10,6 +10,7 @@ class BlackjackGame:
         self.dealer = Dealer()
         self.dealer_hand = Hand()
         self.player_hand = Hand()
+        self.dealt_cards = []
 
     def start_game(self):
         self.dealer_hand.add_card(self.deck.deal(faceup=False))
@@ -17,9 +18,8 @@ class BlackjackGame:
         self.dealer_hand.add_card(self.deck.deal())
         self.player_hand.add_card(self.deck.deal())
 
-    def player_turn(self, player):
-        for player in self.players:
-            player.play()
+    def player_turn(self):
+            self.player.play()
 
     def dealer_turn(self):
         self.dealer_hand.cards[0].faceup = True
