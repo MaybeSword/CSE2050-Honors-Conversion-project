@@ -6,6 +6,7 @@ class Deck:
     def __init__(self):
         self.cards = []
         self.newDeck()
+        self.count = 0
         
     
     def newDeck(self):
@@ -31,7 +32,16 @@ class Deck:
         self._len -= 1
         if self._len < 10:
             self.newDeck()
+        self.update_count(Card_dealt.card_value())
         return Card_dealt
+    
+    def update_count(self, value):
+        if 2<=value and value<=6:
+            self.count+=1
+        elif value is 10 or value is 11:
+            self.count -=1
+
+
 
 #tests
 if __name__ == "__main__":

@@ -26,6 +26,6 @@ class Player:
     def basic_strategy_play(self):
         pass
 
-    def count_cards_play(self, past_cards=[]):
+    def playCC(self, count):
         # 2 - 6  is plus1, 10 - A, is minus1, 7-9 neutral
         pass

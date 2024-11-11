@@ -5,6 +5,18 @@ class Card:
         self.suit = suit
         self.faceup = faceup
 
+    def card_value(card):
+        val = 0
+        L_nums = [2, 3, 4, 5, 6, 7, 8, 9, 10]
+        face_cards = ['J', 'Q', 'K']
+        if card.rank in L_nums:
+            val = card.rank
+        elif card.rank in face_cards:
+            val = 10
+        else: 
+            val += 11
+        return val
+
     def __repr__(self):
         if self.faceup: return f"{self.rank}{self.suit.upper()[0]}"
         else: return "???"
