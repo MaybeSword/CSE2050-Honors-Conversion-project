@@ -50,7 +50,8 @@ class BlackjackGame:
                 #push
                 pass
             else:
-                self.player.update_balance(loss=True, blackjack=True)
+                #player wins
+                self.player.update_balance(loss=False, blackjack=True)
         elif self.dealer.blackjack and self.player_hand.calculate_value() == 21:
             #dealer wins
             self.player.update_balance(loss=True)
@@ -104,7 +105,7 @@ class BlackjackGameCC:
                 #push
                 pass
             else:
-                self.player.update_balance(loss=True, blackjack=True)
+                self.player.update_balance(loss=False, blackjack=True)
         elif self.dealer.blackjack and self.player_hand.calculate_value() == 21:
             #dealer wins
             self.player.update_balance(loss=True)
