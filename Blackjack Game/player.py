@@ -12,7 +12,7 @@ class Player:
         if self._bet > self.balance:
             raise RuntimeError("Not enough money!")
 
-    def os_busted(self):
+    def is_busted(self):
         return self.busted
 
     def play(self, hand, deck=Deck):

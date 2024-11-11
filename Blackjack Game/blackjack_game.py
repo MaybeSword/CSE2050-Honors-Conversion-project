@@ -29,5 +29,19 @@ class BlackjackGame:
 
     def check_winner(self):
         if self.dealer_hand.calculate_value() > self.player_hand.calculate_value():
-            
+            if not self.dealer_hand.is_busted():
+                #dealer wins
+                pass
+            else:
+                #player wins
+                pass
+        elif self.dealer_hand.calculate_value() < self.player_hand.calculate_value():
+            if not self.player_hand.isbusted():
+                #player wins
+                pass
+            else: 
+                # dealer wins
+                pass
+        else:
+            #push
             pass

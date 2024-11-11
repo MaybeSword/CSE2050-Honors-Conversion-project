@@ -6,6 +6,7 @@ class Hand:
 
     def add_card(self, card):
         self.cards.append(card)
+        return card
 
     def calculate_value(self):
         val = 0
