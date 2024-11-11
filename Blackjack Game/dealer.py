@@ -3,16 +3,30 @@ from deck import Deck
 from player import Player
 
 class Dealer:
-    def __init__(self, player=Player):
-        self.player = player
+    """A Dealer to deal in Blackjack.
+    """
+    def __init__(self):
+        """Initialize a Dealer.
+        """
+        self.hand = Hand()
         self.busted = False
         self.blackjack = False
 
     def is_busted(self):
+        """Check if dealer has busted.
+
+        Returns:
+            bool: True if dealer has busted, False otherwise.
+        """
         return self.busted   
 
-    def play_turn(self, hand, deck=Deck):
-        #bulk of logic is happening here, can transfer it where needed
+    def play_turn(self, hand:Hand, deck:Deck):
+        """Plays the dealer's turn.
+
+        Args:
+            hand (Hand): Dealer's hand.
+            deck (Deck): Deck to pull from.
+        """
         while hand.calculate_value() <= 16:
             hand.add_card(deck.deal())
         if hand.calculate_value() > 21:
@@ -25,5 +39,5 @@ class Dealer:
 if __name__ == "__main__":
     D1 = Deck()
     Player1 = Player()
-    Dealer1 = Dealer(Player1)
+    Dealer1 = Dealer()
     Dealer1.play_turn(D1)

@@ -3,28 +3,52 @@ import random
 from hand import Hand
 
 class Deck:
-    def __init__(self):
+    """Deck of cards used in Blackjack
+    """
+    def __init__(self, n=6):
+        """Initialize a Deck of Cards containing the cards from n standard decks of cards.
+
+        Args:
+            n (int, optional): Number of standard decks to use. Defaults to 6.
+        """
         self.cards = []
-        self.newDeck()
+        self.newDeck(n)
         self.count = 0
         
     
-    def newDeck(self):
+    def newDeck(self, n):
+        """Creates a fresh Deck made up of n standard decks of cards.
+
+        Args:
+            n (int): Number of standard decks to use.
+        """
         L_suits = ['clubs', 'spades', 'hearts', 'diamonds']
         L_ranks = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K']
         self.cards = []
         for rank in L_ranks:
             for suit in L_suits:
-                for i in range(6):
+                for i in range(n):
                     self.cards.append(Card(rank, suit))
         random.shuffle(self.cards)
         self._len = 312
 
 
     def __len__(self):
+        """
+        Returns:
+            int: Length of Deck.
+        """
         return self._len
 
     def deal(self, faceup=True):
+        """Deals a Card from the top of the Deck.
+
+        Args:
+            faceup (bool, optional): True if Card is dealt face up, False if dealt face down. Defaults to True.
+
+        Returns:
+            Card: The Card dealt.
+        """
         Card_dealt = self.cards[len(self) - 1]
         if not faceup:
             Card_dealt.faceup = False
@@ -36,6 +60,11 @@ class Deck:
         return Card_dealt
     
     def update_count(self, value):
+        """Used for counting cards algorithm. Updates count based on value.
+
+        Args:
+            value (int): Value of the card being counted.
+        """
         if 2<=value and value<=6:
             self.count+=1
         elif value is 10 or value is 11:

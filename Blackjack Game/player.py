@@ -2,7 +2,14 @@ from hand import Hand
 from deck import Deck
 
 class Player:
-    def __init__(self, balance=0):
+    """Player to play the game of Blackjack.
+    """ 
+    def __init__(self, balance=1000):
+        """Initialize a Player.
+
+        Args:
+            balance (int, optional): Player's Money. Defaults to 1000.
+        """
         self.hand = Hand()
         self.balance = balance
         self._bet = 0
@@ -10,12 +17,26 @@ class Player:
         self.blackjack = False
 
     def bet(self, num):
+        """Bet an amount of money equal to num.
+
+        Args:
+            num (int): Amount of bet.
+
+        Raises:
+            RuntimeError: If the bet exceeds player's balance.
+        """
         if self._bet > self.balance:
             raise RuntimeError("Not enough money!")
         else:
             self.bet == num
 
-    def update_balance(self, loss=bool, blackjack=False):
+    def update_balance(self, loss: bool, blackjack=False):
+        """Update player's balance after a hand.
+
+        Args:
+            loss (bool): True if player lost hand, False if player won hand.
+            blackjack (bool, optional): True if player got a Blackjack. Defaults to False.
+        """
         if blackjack:
             self.balance += int(1.5*self.bet)
         elif loss:
@@ -24,14 +45,24 @@ class Player:
             self.balance += self.bet
 
     def is_busted(self):
+        """Check if player has busted.
+
+        Returns:
+            bool: True if player busted, False if player didn't bust.
+        """
         return self.busted
 
-    def play(self, hand, deck=Deck):
-        """playing manually"""
+    def play(self, hand:Hand, deck:Deck):
+        """Play the hand manually.
+
+        Args:
+            hand (Hand): Hand to play with/alter.
+            deck (Deck): Deck to play from.
+        """
         #actions stand, hit, double, split if ranks equal
-        if len(hand.cards) == 2 and hand.calculate_value() == 21:
+        if len(hand.cards) == 2 and hand.calculate_value() == 21: # Player has gotten a blackjack
             self.blackjack = True
-        if hand.calculate_value() > 21:
+        if hand.calculate_value() > 21: # Player has busted
             self.busted = True
 
     def basic_strategy_play(self):
