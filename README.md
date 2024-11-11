@@ -1,0 +1,1 @@
+This project is an exploration of a simple blackjack game using the concepts of Object Oriented Design, Data Structures, and time complexities within algorithims. The technologies used in this project include python, as well as the tkinter library. 
