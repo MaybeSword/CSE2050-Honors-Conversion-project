@@ -27,18 +27,25 @@ class Hand:
             int: Value of the Hand.
         """
         val = 0
-        L_nums = [2, 3, 4, 5, 6, 7, 8, 9, 10]
-        face_cards = ['J', 'Q', 'K']
         for card in self.cards:
-            if card.rank in L_nums:
-                val += card.rank
-            elif card.rank in face_cards:
-                val += 10
-            else: 
-                val += 11
-                if val > 21:
-                    val -= 10
+            val += card.card_value()
+        if 'A' in self and val > 21:
+            val -= 10
         return val
+    
+    def __contains__(self, rank):
+        """Check if rank is in current Hand.
+
+        Args:
+            rank (_type_): Rank of card to check.
+
+        Returns:
+            bool: True if rank is in Hand, False otherwise.
+        """
+        for card in self.cards:
+            if card.rank == rank:
+                return True
+        return False
 
     def split(self):
         """Splits a Hand with two cards of equal rank into two Hands.

@@ -19,16 +19,8 @@ class Card:
         Returns:
             int: value of the Card
         """
-        val = 0
-        L_nums = [2, 3, 4, 5, 6, 7, 8, 9, 10]
-        face_cards = ['J', 'Q', 'K']
-        if self.rank in L_nums:
-            val = self.rank
-        elif self.rank in face_cards:
-            val = 10
-        else: 
-            val += 11
-        return val
+        card_dict = {2:2, 3:3, 4:4, 5:5, 6:6, 7:7, 8:8, 9:9, 10:10, 'J':10, 'Q':10, 'K':10, 'A': 11}
+        return card_dict[self.rank]
 
     def __repr__(self):
         """Minimal string representation of Card. 
