@@ -49,6 +49,11 @@ class Hand:
         return False
 
     def check_pair(self):
+        """Check if first two cards are a pair.
+
+        Returns:
+            bool: True if Hand's first two cards are a pair, False otherwise.
+        """
         return True if self.cards[0].rank == self.cards[1].rank else False
             
     def split(self):

@@ -18,6 +18,11 @@ class Player:
         self.blackjack = False
 
     def get_bet(self):
+        """Returns the player's bet.
+
+        Returns:
+            int: Player's bet
+        """
         return self._bet
 
     def bet(self, num):
@@ -35,8 +40,11 @@ class Player:
             self._bet = num
 
     def betCC(self, deck:Deck):
-        '''Chris fix this docstring
-           Update the bet based on the count rather than player input'''
+        """Updates bet based on count.
+
+        Args:
+            deck (Deck): The Deck we are counting.
+        """
         if self._bet == 0:
             self._bet = 200
         
@@ -88,15 +96,21 @@ class Player:
         pass
 
     def playCC(self, deck: Deck, dealer: Dealer):
+        """Plays Blackjack using an optimal counting cards strategy.
+
+        Args:
+            deck (Deck): Deck we are counting.
+            dealer (Dealer): Dealer we are playing against.
+        """
         # 2 - 6  is plus1, 10 - A, is minus1, 7-9 neutral
         decision = 'stand'
         if self.hand.check_pair():
-            if self.hand('A') or self.hand(8):
+            if 'A' in self.hand or 8 in self.hand:
                 decision = 'split'
-            if self.hand(2) or self.hand(3) or self.hand(6) or self.hand(7) or self.hand(9):
+            if 2 in self.hand or 3 in self.hand or 6 in self.hand or 7 in self.hand or 9 in self.hand:
                 if dealer.get_upcard() <7:
                     decision = 'split'
-        elif self.hand('A'):
+        elif 'A' :
             if self.hand.calculate_value()>12 and self.hand.calculate_value()<16:
                 decision = 'hit'
             if self.hand.calculate_value()>15 and self.hand.calculate_value()<19:
