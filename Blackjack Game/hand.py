@@ -48,6 +48,9 @@ class Hand:
                 return True
         return False
 
+    def check_pair(self):
+        return True if self.cards[0].rank == self.cards[1].rank else False
+            
     def split(self):
         """Splits a Hand with two cards of equal rank into two Hands.
 

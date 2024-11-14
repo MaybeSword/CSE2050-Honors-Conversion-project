@@ -12,6 +12,9 @@ class Dealer:
         self.busted = False
         self.blackjack = False
 
+    def get_upcard(self):
+        return self.hand.cards[0].card_value()
+
     def is_busted(self):
         """Check if dealer has busted.
 

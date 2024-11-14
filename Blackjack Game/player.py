@@ -1,5 +1,6 @@
 from hand import Hand
 from deck import Deck
+from dealer import Dealer
 
 class Player:
     """Player to play the game of Blackjack.
@@ -68,6 +69,11 @@ class Player:
     def basic_strategy_play(self):
         pass
 
-    def playCC(self, count):
+    def playCC(self, count, dealer: Dealer):
         # 2 - 6  is plus1, 10 - A, is minus1, 7-9 neutral
-        pass
+        if self.hand.check_pair() == True:
+            if self.hand('A') or self.hand(8):
+                self.hand.split()
+            if self.hand(2) or self.hand(3) or self.hand(6) or self.hand(7) or self.hand(9):
+                if dealer.get_upcard() <7:
+                    self.hand.split()
