@@ -5,7 +5,7 @@ from dealer import Dealer
 class Player:
     """Player to play the game of Blackjack.
     """ 
-    def __init__(self, balance=1000):
+    def __init__(self, balance=2500):
         """Initialize a Player.
 
         Args:
