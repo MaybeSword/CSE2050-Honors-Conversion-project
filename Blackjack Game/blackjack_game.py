@@ -80,8 +80,9 @@ class BlackjackGameCC:
         self.dealt_cards = []
     
     def before_game(self):
-        #prompt player for bet
-        self.player.bet(500) #arbitrary value
+        '''Chris fix this docstring
+           Make a bet based on count'''
+        self.player.betCC(self.deck)
 
     def start_game(self):
         self.dealer_hand.add_card(self.deck.deal(faceup=False))
