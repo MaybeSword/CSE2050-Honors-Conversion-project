@@ -7,6 +7,7 @@ class Hand:
         """Initialize an empty Hand.
         """
         self.cards = []
+        self.value = 0
 
     def add_card(self, card:Card):
         """Add a Card to this Hand.
@@ -18,6 +19,9 @@ class Hand:
             Card: The card to add.
         """
         self.cards.append(card)
+        self.value += card.card_value()
+        if card.rank == 'A' and self.value > 21:
+            self.value -= 10
         return card
 
     def calculate_value(self):
@@ -26,12 +30,7 @@ class Hand:
         Returns:
             int: Value of the Hand.
         """
-        val = 0
-        for card in self.cards:
-            val += card.card_value()
-        if 'A' in self and val > 21:
-            val -= 10
-        return val
+        return self.value
     
     def __contains__(self, rank):
         """Check if rank is in current Hand.
