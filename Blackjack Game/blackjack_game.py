@@ -142,3 +142,4 @@ if __name__ == "__main__":
     print(f"dealer hand: {BG.dealer_hand}, player hand: {BG.player_hand}")
     print(f"dealer value: {BG.dealer_hand.calculate_value()}, player value: {BG.player_hand.calculate_value()}")
     BG.check_winner()
+    print(BG.player.balance)

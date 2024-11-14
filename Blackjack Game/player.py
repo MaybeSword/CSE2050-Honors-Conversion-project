@@ -29,7 +29,7 @@ class Player:
         if self._bet > self.balance:
             raise RuntimeError("Not enough money!")
         else:
-            self.bet == num
+            self._bet = num
 
     def update_balance(self, loss: bool, blackjack=False):
         """Update player's balance after a hand.
