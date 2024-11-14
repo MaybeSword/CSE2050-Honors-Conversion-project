@@ -9,7 +9,7 @@ class Player:
         """Initialize a Player.
 
         Args:
-            balance (int, optional): Player's Money. Defaults to 1000.
+            balance (int, optional): Player's Money. Defaults to 2500.
         """
         self.hand = Hand()
         self.balance = balance
