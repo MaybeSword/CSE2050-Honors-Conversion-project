@@ -62,6 +62,8 @@ class Hand:
         Returns:
             tuple: Both the current Hand and the new Hand.
         """
+        if self.cards[0].rank != self.cards[1].rank:
+            raise RuntimeError("Cannot split unequal cards.")
         newHand = Hand()
         newHand.add_card(self.cards[1])
         self.cards.pop(1)

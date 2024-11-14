@@ -79,7 +79,7 @@ class Player:
         """
         return self.busted
 
-    def play(self, hand:Hand, deck:Deck):
+    def play_action(self, hand:Hand, deck:Deck, action):
         """Play the hand manually.
 
         Args:
@@ -87,10 +87,19 @@ class Player:
             deck (Deck): Deck to play from.
         """
         #actions stand, hit, double, split if ranks equal
+        if action == "hit":
+            hand.add_card(deck.deal())
+        if action == "double":
+            self.bet(self._bet * 2)
+            hand.add_card(deck.deal())
+        if action == "split":
+            newHands = hand.split()
+            return newHands
         if len(hand.cards) == 2 and hand.calculate_value() == 21: # Player has gotten a blackjack
             self.blackjack = True
         if hand.calculate_value() > 21: # Player has busted
             self.busted = True
+        return None
 
     def basic_strategy_play(self):
         pass

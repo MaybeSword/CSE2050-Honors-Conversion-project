@@ -29,10 +29,12 @@ class BlackjackGame:
         self.dealer_hand.add_card(self.deck.deal())
         self.player_hand.add_card(self.deck.deal())
 
-    def player_turn(self):
+    def player_turn(self, action):
         """Player's turn in BlackjackGame.
         """
-        self.player.play(self.player_hand, self.deck)
+        if self.player.play_action(self.player_hand, self.deck, action) != None:
+            #talk to parent controller class somehow
+            pass
 
     def dealer_turn(self):
         """Dealer's turn in BlackjackGame.
