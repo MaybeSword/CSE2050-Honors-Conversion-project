@@ -9,18 +9,19 @@ class Card:
             suit (str): Suit of the card, Hearts, Spades, Clubs, or Diamonds.
             faceup (bool, optional): True if the card is face up, False otherwise. Defaults to True.
         """
+        card_dict = {2:2, 3:3, 4:4, 5:5, 6:6, 7:7, 8:8, 9:9, 10:10, 'J':10, 'Q':10, 'K':10, 'A': 11}
+        self.val = card_dict[rank]
         self.rank = rank
         self.suit = suit
         self.faceup = faceup
 
     def card_value(self):
-        """Returns the maximum possible card value
+        """Returns the card value
 
         Returns:
             int: value of the Card
         """
-        card_dict = {2:2, 3:3, 4:4, 5:5, 6:6, 7:7, 8:8, 9:9, 10:10, 'J':10, 'Q':10, 'K':10, 'A': 11}
-        return card_dict[self.rank]
+        return self.val
 
     def __repr__(self):
         """Minimal string representation of Card. 

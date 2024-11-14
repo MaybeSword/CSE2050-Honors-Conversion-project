@@ -10,7 +10,7 @@ class Hand:
         self.value = 0
 
     def add_card(self, card:Card):
-        """Add a Card to this Hand.
+        """Add a Card to this Hand. And updates the hands value.
 
         Args:
             card (Card): The card to add.
@@ -20,8 +20,10 @@ class Hand:
         """
         self.cards.append(card)
         self.value += card.card_value()
-        if card.rank == 'A' and self.value > 21:
-            self.value -= 10
+        for c in self.cards:
+            if c.rank == 'A' and self.value > 21 and c.card_value() == 11:
+                c.val = 1
+                self.value -= 10   
         return card
 
     def calculate_value(self):
@@ -65,3 +67,15 @@ class Hand:
         """
         return f"hand: {self.cards}"
 
+if __name__ == "__main__":
+    H1 = Hand()
+    H1.add_card(Card('A', 'clubs'))
+    print(H1, H1.calculate_value())
+    H1.add_card(Card('A', 'hearts'))
+    print (H1, H1.calculate_value())
+    H1.add_card(Card('A', 'spades'))
+    print (H1, H1.calculate_value())
+    H1.add_card(Card('K', 'hearts'))
+    print (H1, H1.calculate_value())
+    H1.add_card(Card('Q', 'hearts'))
+    print (H1, H1.calculate_value())
