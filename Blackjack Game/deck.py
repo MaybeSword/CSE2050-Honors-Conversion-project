@@ -66,9 +66,9 @@ class Deck:
             value (int): Value of the card being counted.
         """
         if 2<=value and value<=6:
-            self.count+=1/len(self)
+            self.count+=1/len(self)*52
         elif value is 10 or value is 11:
-            self.count -=1/len(self)
+            self.count -=1/len(self)*52
 
 
 
