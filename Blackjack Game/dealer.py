@@ -1,6 +1,5 @@
 from hand import Hand
 from deck import Deck
-from player import Player
 
 class Dealer:
     """A Dealer to deal in Blackjack.
@@ -13,7 +12,7 @@ class Dealer:
         self.blackjack = False
 
     def get_upcard(self):
-        return self.hand.cards[0].card_value()
+        return self.hand.cards[1].card_value()
 
     def is_busted(self):
         """Check if dealer has busted.
@@ -41,6 +40,5 @@ class Dealer:
     
 if __name__ == "__main__":
     D1 = Deck()
-    Player1 = Player()
     Dealer1 = Dealer()
     Dealer1.play_turn(D1)

@@ -39,11 +39,11 @@ class Player:
             blackjack (bool, optional): True if player got a Blackjack. Defaults to False.
         """
         if blackjack:
-            self.balance += int(1.5*self.bet)
+            self.balance += int(1.5*self._bet)
         elif loss:
-            self.balance -= self.bet
+            self.balance -= self._bet
         else:
-            self.balance += self.bet
+            self.balance += self._bet
 
     def is_busted(self):
         """Check if player has busted.

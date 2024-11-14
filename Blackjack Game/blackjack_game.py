@@ -32,14 +32,14 @@ class BlackjackGame:
     def player_turn(self):
         """Player's turn in BlackjackGame.
         """
-        self.player.play()
+        self.player.play(self.player_hand, self.deck)
 
     def dealer_turn(self):
         """Dealer's turn in BlackjackGame.
         """
         self.dealer_hand.cards[0].faceup = True
         if not self.player.busted:
-            self.dealer.play_turn()
+            self.dealer.play_turn(self.dealer_hand, self.deck)
         
 
     def check_winner(self):
@@ -47,29 +47,28 @@ class BlackjackGame:
         """
         if self.player.blackjack:
             if self.dealer.blackjack:
-                #push
+                print("push")
                 pass
             else:
-                #player wins
+                print("player wins + blackjack")
                 self.player.update_balance(loss=False, blackjack=True)
         elif self.dealer.blackjack and self.player_hand.calculate_value() == 21:
-            #dealer wins
+            print("dealer wins")
             self.player.update_balance(loss=True)
         elif self.player.is_busted():
-            #dealer wins
+            print("dealer wins")
             self.player.update_balance(loss=True)
         elif self.dealer.is_busted():
-            #player wins
+            print("player wins")
             self.player.update_balance(loss=False)
         elif self.dealer_hand.calculate_value() > self.player_hand.calculate_value():
-            #dealer wins
+            print("dealer wins")
             self.player.update_balance(loss=True)
         elif self.dealer_hand.calculate_value() < self.player_hand.calculate_value():
-            #player wins
+            print("player wins")
             self.player.update_balance(loss=False)
         else:
-            #push
-            pass
+            print("push")
 
 class BlackjackGameCC:
     def __init__(self):
@@ -96,7 +95,7 @@ class BlackjackGameCC:
     def dealer_turn(self):
         self.dealer_hand.cards[0].faceup = True
         if not self.player.busted:
-            self.dealer.play_turn()
+            self.dealer.play_turn(self.dealer_hand, self.deck)
         
 
     def check_winner(self):
@@ -107,26 +106,39 @@ class BlackjackGameCC:
             else:
                 self.player.update_balance(loss=False, blackjack=True)
         elif self.dealer.blackjack and self.player_hand.calculate_value() == 21:
-            #dealer wins
+            print("dealer wins")
             self.player.update_balance(loss=True)
         elif self.dealer_hand.calculate_value() > self.player_hand.calculate_value():
             if not self.dealer.is_busted():
-                #dealer wins
+                print("dealer wins")
                 self.player.update_balance(loss=True)
                 pass
             else:
-                #player wins
+                print("player wins")
                 self.player.update_balance(loss=False)
                 pass
         elif self.dealer_hand.calculate_value() < self.player_hand.calculate_value():
             if not self.player.is_busted():
-                #player wins
+                print("player wins")
                 self.player.update_balance(loss=False)
                 pass
             else: 
-                # dealer wins
+                print("dealer wins")
                 self.player.update_balance(loss=True)
                 pass
         else:
             #push
             pass
+
+
+
+if __name__ == "__main__":
+    BG = BlackjackGame()
+    BG.before_game()
+    BG.start_game()
+    print(f"dealer hand: {BG.dealer_hand}, player hand: {BG.player_hand}")
+    BG.player_turn()
+    BG.dealer_turn()
+    print(f"dealer hand: {BG.dealer_hand}, player hand: {BG.player_hand}")
+    print(f"dealer value: {BG.dealer_hand.calculate_value()}, player value: {BG.player_hand.calculate_value()}")
+    BG.check_winner()
