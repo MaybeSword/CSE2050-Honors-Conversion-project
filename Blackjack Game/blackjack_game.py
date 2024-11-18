@@ -15,6 +15,12 @@ class BlackjackGame:
         self.dealer_hand = Hand()
         self.player_hand = Hand()
     
+    def reset(self):
+        self.player = Player()
+        self.dealer = Dealer()
+        self.dealer_hand = Hand()
+        self.player_hand = Hand()
+    
     def before_game(self):
         """Betting phase of BlackjackGame.
         """

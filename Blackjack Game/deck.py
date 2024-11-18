@@ -55,7 +55,7 @@ class Deck:
         self.cards.pop(len(self)-1)
         self._len -= 1
         if self._len < 10:
-            self.newDeck()
+            self.newDeck(6)
         self.update_count(Card_dealt.card_value())
         return Card_dealt
     

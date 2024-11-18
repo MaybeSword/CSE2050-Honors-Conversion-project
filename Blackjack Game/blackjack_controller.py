@@ -1,4 +1,5 @@
 from blackjack_game import BlackjackGame
+from time import sleep
 
 class BlackjackController:
     """
@@ -7,6 +8,9 @@ class BlackjackController:
     def __init__(self, gui):
         self.game = BlackjackGame()
         self.gui = gui
+
+    def reset(self):
+        self.game.reset()
 
     def player_action(self, action):
         """Calls the correct player action after their input"""
@@ -18,6 +22,7 @@ class BlackjackController:
             self.gui.show_card(card)
             self.update_gui()
             if self.game.player.is_busted():
+                sleep(2)
                 self.gui.update_display("Player busts! Dealer wins.")
         elif action == "stand":
             self.game.player_turn("stand")
@@ -27,6 +32,7 @@ class BlackjackController:
             self.game.player_turn("double")
             self.update_gui()
             if self.game.player.is_busted():
+                sleep(2)
                 self.gui.update_display("Player busts! Dealer wins.")
             else:
                 self.dealer_turn()
@@ -35,8 +41,10 @@ class BlackjackController:
         self.game.dealer_turn()
         self.update_gui()
         if self.game.dealer.is_busted():
+            sleep(2)
             self.gui.update_display("Dealer busts! Player wins.")
         else:
+            sleep(2)
             self.determine_winner()
 
     def determine_winner(self):

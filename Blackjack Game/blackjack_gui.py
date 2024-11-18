@@ -72,6 +72,7 @@ class BlackjackGUI:
     def double(self):
         self.controller.player_action("double")
 
+
 if __name__ == "__main__":
     root = tk.Tk()
     app = BlackjackGUI(root)
