@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 from blackjack_controller import BlackjackController
 from PIL import Image, ImageTk 
+from pathlib import Path
 
 class BlackjackGUI:
     def __init__(self, root):
@@ -38,9 +39,9 @@ class BlackjackGUI:
         values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'queen', 'king', 'ace']
         for suit in suits:
             for value in values:
-                image_path = f"/Desktop/Developer/Python/CSE2050/Honors Conversion project/Blackjack Game/Cards/{value}_of_{suit}.png"
-                image = Image.open(image_path)
-                image = image.resize((100, 150), Image.ANTIALIAS)
+                image_path = f"{Path.cwd()}/Blackjack Game/Cards"
+                image = Image.open(f"{image_path}/{value}_of_{suit}.png")
+                image = image.resize((100, 150)) #, Image.ANTIALIAS
                 self.card_images[f"{value}_of_{suit}"] = ImageTk.PhotoImage(image)
 
     def update_display(self, message):
