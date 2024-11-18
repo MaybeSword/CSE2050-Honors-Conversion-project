@@ -9,6 +9,7 @@ class BlackjackController:
         self.gui = gui
 
     def player_action(self, action):
+        """Calls the correct player action after their input"""
         if action == "deal":
             self.game.start_game()
             self.update_gui()
