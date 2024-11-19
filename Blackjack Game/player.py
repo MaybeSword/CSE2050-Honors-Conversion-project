@@ -157,7 +157,7 @@ class Player:
 
         if self.hand.calculate_value() == 10:
             if dealer.hand.get_upcard() == 10:
-                decision = 'double' if deck.count>=4 else decision='hit'
+                decision = 'double' if deck.count>=4 else 'hit'
 
         if self.hand.calculate_value() == 16:
             if dealer.hand.get_upcard() == 10:

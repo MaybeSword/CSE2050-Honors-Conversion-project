@@ -32,6 +32,7 @@ class BlackjackGame:
         """
         self.dealer_hand = Hand()
         self.player_hand = Hand()
+        self.player.busted, self.dealer.busted, self.player.blackjack, self.dealer.blackjack = False, False, False, False
         self.dealer_hand.add_card(self.deck.deal(faceup=False))
         self.player_hand.add_card(self.deck.deal())
         self.dealer_hand.add_card(self.deck.deal())

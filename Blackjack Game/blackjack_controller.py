@@ -14,6 +14,8 @@ class BlackjackController:
         if action == "deal":
             self.game.start_game()
             self.update_gui("")
+            if self.game.player.blackjack:
+                self.dealer_turn()
         elif action == "hit":
             card = self.game.player_turn("hit")
             self.gui.show_card(card)
@@ -23,14 +25,7 @@ class BlackjackController:
         elif action == "stand":
             self.game.player_turn("stand")
             self.update_gui()
-            while self.game.dealer_hand.calculate_value() <= 16:
-                # sleep(1)
-                self.update_gui()
-                self.dealer_turn()
-            if self.game.dealer_hand.calculate_value() > 21:
-                self.busted = True
-            if len(self.game.dealer_hand.cards) == 2 and self.game.dealer_hand.calculate_value() == 21:
-                self.blackjack = True
+            self.dealer_turn()
         elif action == "double":
             self.game.player_turn("double")
             self.update_gui()
