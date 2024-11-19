@@ -67,7 +67,7 @@ class Deck:
         """
         if 2<=value and value<=6:
             self.count+=1/len(self)*52
-        elif value is 10 or value is 11:
+        elif value == 10 or value == 11:
             self.count -=1/len(self)*52
 
 
