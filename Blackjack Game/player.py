@@ -119,7 +119,7 @@ class Player:
             if 2 in self.hand or 3 in self.hand or 6 in self.hand or 7 in self.hand or 9 in self.hand:
                 if dealer.get_upcard() <7:
                     decision = 'split'
-        elif 'A' :
+        elif 'A' in self.hand:
             if self.hand.calculate_value()>12 and self.hand.calculate_value()<16:
                 decision = 'hit'
             if self.hand.calculate_value()>15 and self.hand.calculate_value()<19:
@@ -148,6 +148,44 @@ class Player:
                     decision = 'hit'
 
         #add some lines about some advantageous plays using count
+        if 'A' in self.hand and 5 in self.hand and len(self.hand.cards) ==2:
+            if dealer.get_upcard()==4:
+                if deck.count>=3:
+                    decision = 'double'
+                else:
+                    decision = 'hit'
+
+        if self.hand.calculate_value() == 10:
+            if dealer.hand.get_upcard() == 10:
+                decision = 'double' if deck.count>=4 else decision='hit'
+
+        if self.hand.calculate_value() == 16:
+            if dealer.hand.get_upcard() == 10:
+                if deck.count >= 0:
+                    decision = 'stand'
+                else:
+                    decision = 'hit'
+        
+        if self.hand.calculate_value() == 15:
+            if dealer.hand.get_upcard() == 10:
+                if deck.count >= 4:
+                    decision = 'stand'
+                else:
+                    decision = 'hit'
+        
+        if self.hand.check_pair():
+            if len(self.hand.cards) == 2:
+                if 10 in self.hand:
+                    if dealer.hand.get_upcard() == 5 or dealer.hand.get_upcard() == 6:
+                        if deck.count>=5:
+                            decision = 'split'
+
+        if self.hand.check_pair():
+            if len(self.hand.cards) == 2:
+                if 4 in self.hand:
+                    if dealer.hand.get_upcard() == 5 or dealer.hand.get_upcard() == 6:
+                        if deck.count>=4:
+                            decision = 'split'
 
         if decision == 'hit': 
             self.hand.add_card()
