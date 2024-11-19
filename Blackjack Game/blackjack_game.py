@@ -30,6 +30,8 @@ class BlackjackGame:
     def start_game(self):
         """Initial 4 cards dealt in BlackjackGame.
         """
+        self.dealer_hand = Hand()
+        self.player_hand = Hand()
         self.dealer_hand.add_card(self.deck.deal(faceup=False))
         self.player_hand.add_card(self.deck.deal())
         self.dealer_hand.add_card(self.deck.deal())
@@ -55,28 +57,27 @@ class BlackjackGame:
         """
         if self.player.blackjack:
             if self.dealer.blackjack:
-                print("push")
-                pass
+                return "It's a tie!"
             else:
-                print("player wins + blackjack")
                 self.player.update_balance(loss=False, blackjack=True)
+                return "Player wins + blackjack!"
         elif self.dealer.blackjack and self.player_hand.calculate_value() == 21:
-            print("dealer wins")
             self.player.update_balance(loss=True)
+            return "Dealer wins!"
         elif self.player.is_busted():
-            print("dealer wins")
             self.player.update_balance(loss=True)
+            return "Player busts! Dealer wins."
         elif self.dealer.is_busted():
-            print("player wins")
             self.player.update_balance(loss=False)
+            return "Dealer busts! Player wins."
         elif self.dealer_hand.calculate_value() > self.player_hand.calculate_value():
-            print("dealer wins")
             self.player.update_balance(loss=True)
+            return "Dealer wins!"
         elif self.dealer_hand.calculate_value() < self.player_hand.calculate_value():
-            print("player wins")
             self.player.update_balance(loss=False)
+            return "Player wins!"
         else:
-            print("push")
+            return "It's a tie!"
 
 class BlackjackGameCC:
     """A Blackjack game, implementing counting cards.
@@ -158,7 +159,7 @@ if __name__ == "__main__":
     BG.before_game()
     BG.start_game()
     print(f"dealer hand: {BG.dealer_hand}, player hand: {BG.player_hand}")
-    BG.player_turn()
+    # BG.player_turn()
     BG.dealer_turn()
     print(f"dealer hand: {BG.dealer_hand}, player hand: {BG.player_hand}")
     print(f"dealer value: {BG.dealer_hand.calculate_value()}, player value: {BG.player_hand.calculate_value()}")
