@@ -1,8 +1,8 @@
 import tkinter as tk
 from tkinter import messagebox
 from blackjack_controller import BlackjackController
-from PIL import Image, ImageTk 
-from pathlib import Path
+from PIL import Image, ImageTk
+import os
 
 class BlackjackGUI:
     def __init__(self, root):
@@ -40,10 +40,13 @@ class BlackjackGUI:
         values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'queen', 'king', 'ace']
         for suit in suits:
             for value in values:
-                image_path = f"{Path.cwd()}/Blackjack Game/Cards"
-                image = Image.open(f"{image_path}/{value}_of_{suit}.png")
-                image = image.resize((100, 150)) #, Image.ANTIALIAS
-                self.card_images[f"{value}_of_{suit}"] = ImageTk.PhotoImage(image)
+                image_path = os.path.join(os.path.dirname(__file__), f"Cards/{value}_of_{suit}.png")
+                if os.path.exists(image_path):
+                    image = Image.open(image_path)
+                    image = image.resize((100, 150), Image.LANCZOS)
+                    self.card_images[f"{value}_of_{suit}"] = ImageTk.PhotoImage(image)
+                else:
+                    print(f"Image not found: {image_path}")
 
     def update_display(self, message):
         self.info_label.config(text=message)
@@ -71,7 +74,6 @@ class BlackjackGUI:
 
     def double(self):
         self.controller.player_action("double")
-
 
 if __name__ == "__main__":
     root = tk.Tk()
