@@ -5,10 +5,20 @@ from PIL import Image, ImageTk
 import os
 
 class BlackjackGUI:
+    """
+    GUI class for BlackjackGame.
+    Manages the graphical user interface and interacts with the controller.
+    """
     def __init__(self, root):
+        """
+        Initialize the BlackjackGUI.
+
+        Args:
+            root (tk.Tk): The root window of the Tkinter application.
+        """
         self.root = root
         self.root.title("Blackjack")
-        self.root.geometry("800x600")
+        self.root.geometry("500x500")  # Set the default window size to 500x500
         
         self.controller = BlackjackController(self)
 
@@ -37,6 +47,9 @@ class BlackjackGUI:
         self.load_card_images()
 
     def load_card_images(self):
+        """
+        Load card images from the Cards directory and store them in a dictionary.
+        """
         suits = ['hearts', 'diamonds', 'clubs', 'spades']
         values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'queen', 'king', 'ace']
         for suit in suits:
@@ -50,9 +63,22 @@ class BlackjackGUI:
                     print(f"Image not found: {image_path}")
 
     def update_display(self, message):
+        """
+        Update the info label with a message.
+
+        Args:
+            message (str): The message to display.
+        """
         self.info_label.config(text=message)
 
     def show_card(self, card, player=True):
+        """
+        Display a card image in the player's or dealer's card frame.
+
+        Args:
+            card (str): The card to display (e.g., '2_of_hearts').
+            player (bool, optional): True if the card is for the player, False if for the dealer. Defaults to True.
+        """
         card_image = self.card_images.get(card)
         if card_image:
             if player:
@@ -65,15 +91,27 @@ class BlackjackGUI:
                 label.pack(side=tk.LEFT)
 
     def deal(self):
+        """
+        Handle the Deal button click event.
+        """
         self.controller.player_action("deal")
 
     def hit(self):
+        """
+        Handle the Hit button click event.
+        """
         self.controller.player_action("hit")
 
     def stand(self):
+        """
+        Handle the Stand button click event.
+        """
         self.controller.player_action("stand")
 
     def double(self):
+        """
+        Handle the Double button click event.
+        """
         self.controller.player_action("double")
 
 if __name__ == "__main__":

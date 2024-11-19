@@ -1,166 +1,94 @@
-from deck import Deck
-from player import Player
-from dealer import Dealer
-from hand import Hand
+from blackjack_game import BlackjackGame
+from time import sleep
 
-class BlackjackGame:
-    """A Blackjack Game.
+class BlackjackController:
     """
-    def __init__(self):
-        """Initialize a BlackjackGame.
+    Controller class for BlackjackGame.
+    Manages the game logic and updates the GUI accordingly.
+    """
+    def __init__(self, gui):
         """
-        self.deck = Deck()
-        self.player = Player()
-        self.dealer = Dealer()
-        self.dealer_hand = Hand()
-        self.player_hand = Hand()
-    
-    def reset(self):
-        self.player = Player()
-        self.dealer = Dealer()
-        self.dealer_hand = Hand()
-        self.player_hand = Hand()
-    
-    def before_game(self):
-        """Betting phase of BlackjackGame.
-        """
-        #prompt player for bet
-        self.player.bet(500) #arbitrary value
+        Initialize the BlackjackController.
 
-    def start_game(self):
-        """Initial 4 cards dealt in BlackjackGame.
+        Args:
+            gui (BlackjackGUI): The GUI instance to interact with.
         """
-        self.dealer_hand.add_card(self.deck.deal(faceup=False))
-        self.player_hand.add_card(self.deck.deal())
-        self.dealer_hand.add_card(self.deck.deal())
-        self.player_hand.add_card(self.deck.deal())
+        self.game = BlackjackGame()
+        self.gui = gui
 
-    def player_turn(self, action):
-        """Player's turn in BlackjackGame.
+    def player_action(self, action):
         """
-        if self.player.play_action(self.player_hand, self.deck, action) != None:
-            #talk to parent controller class somehow
-            pass
+        Handle the player's action and update the game state.
+
+        Args:
+            action (str): The action taken by the player ('deal', 'hit', 'stand', 'double').
+        """
+        if action == "deal":
+            self.game.start_game()
+            self.update_gui()
+        elif action == "hit":
+            card = self.game.player_turn("hit")
+            self.gui.show_card(card)
+            self.update_gui()
+            if self.game.player.is_busted():
+                sleep(2)
+                self.gui.update_display("Player busts! Dealer wins.")
+        elif action == "stand":
+            self.game.player_turn("stand")
+            self.update_gui()
+            self.dealer_turn()
+        elif action == "double":
+            self.game.player_turn("double")
+            self.update_gui()
+            if self.game.player.is_busted():
+                sleep(2)
+                self.gui.update_display("Player busts! Dealer wins.")
+            else:
+                self.dealer_turn()
 
     def dealer_turn(self):
-        """Dealer's turn in BlackjackGame.
         """
-        self.dealer_hand.cards[0].faceup = True
-        if not self.player.busted:
-            self.dealer.play_turn(self.dealer_hand, self.deck)
-        
-
-    def check_winner(self):
-        """Checks the winner of the BlackjackGame, between Dealer and Player.
+        Handle the dealer's turn and update the game state.
         """
-        if self.player.blackjack:
-            if self.dealer.blackjack:
-                print("push")
-                pass
-            else:
-                print("player wins + blackjack")
-                self.player.update_balance(loss=False, blackjack=True)
-        elif self.dealer.blackjack and self.player_hand.calculate_value() == 21:
-            print("dealer wins")
-            self.player.update_balance(loss=True)
-        elif self.player.is_busted():
-            print("dealer wins")
-            self.player.update_balance(loss=True)
-        elif self.dealer.is_busted():
-            print("player wins")
-            self.player.update_balance(loss=False)
-        elif self.dealer_hand.calculate_value() > self.player_hand.calculate_value():
-            print("dealer wins")
-            self.player.update_balance(loss=True)
-        elif self.dealer_hand.calculate_value() < self.player_hand.calculate_value():
-            print("player wins")
-            self.player.update_balance(loss=False)
+        self.game.dealer_turn()
+        self.update_gui()
+        if self.game.dealer.is_busted():
+            sleep(2)
+            self.gui.update_display("Dealer busts! Player wins.")
         else:
-            print("push")
+            sleep(2)
+            self.determine_winner()
 
-class BlackjackGameCC:
-    """A Blackjack game, implementing counting cards.
-    """
-    def __init__(self):
-        """Initialize a BlackjackGameCC.
+    def determine_winner(self):
         """
-        self.deck = Deck()
-        self.player = Player()
-        self.dealer = Dealer()
-        self.dealer_hand = Hand()
-        self.player_hand = Hand()
-        self.dealt_cards = []
-    
-    def before_game(self):
-        """Betting phase. Use optimal betting techniques."
+        Determine the winner of the game and update the GUI with the result.
         """
-        self.player.betCC(self.deck)
-
-    def start_game(self):
-        """Initial phase of game. First four cards dealt.
-        """
-        self.dealer_hand.add_card(self.deck.deal(faceup=False))
-        self.player_hand.add_card(self.deck.deal())
-        self.dealer_hand.add_card(self.deck.deal())
-        self.player_hand.add_card(self.deck.deal())
-
-    def player_turn(self):
-        """Optimal counting cards algorithm's turn to play.
-        """
-        self.player.playCC()
-
-    def dealer_turn(self):
-        """Dealer's turn in Blackjack.
-        """
-        self.dealer_hand.cards[0].faceup = True
-        if not self.player.busted:
-            self.dealer.play_turn(self.dealer_hand, self.deck)
-        
-
-    def check_winner(self):
-        """Checks the winner of the hand. 
-        """
-        if self.player.blackjack:
-            if self.dealer.blackjack:
-                #push
-                pass
-            else:
-                self.player.update_balance(loss=False, blackjack=True)
-        elif self.dealer.blackjack and self.player_hand.calculate_value() == 21:
-            print("dealer wins")
-            self.player.update_balance(loss=True)
-        elif self.dealer_hand.calculate_value() > self.player_hand.calculate_value():
-            if not self.dealer.is_busted():
-                print("dealer wins")
-                self.player.update_balance(loss=True)
-                pass
-            else:
-                print("player wins")
-                self.player.update_balance(loss=False)
-                pass
-        elif self.dealer_hand.calculate_value() < self.player_hand.calculate_value():
-            if not self.player.is_busted():
-                print("player wins")
-                self.player.update_balance(loss=False)
-                pass
-            else: 
-                print("dealer wins")
-                self.player.update_balance(loss=True)
-                pass
+        self.game.check_winner()
+        if self.game.player.blackjack:
+            self.gui.update_display("Player wins + blackjack!")
+        elif self.game.dealer.blackjack:
+            self.gui.update_display("Dealer wins!")
+        elif self.game.player.is_busted():
+            self.gui.update_display("Dealer wins!")
+        elif self.game.dealer.is_busted():
+            self.gui.update_display("Player wins!")
+        elif self.game.dealer_hand.calculate_value() > self.game.player_hand.calculate_value():
+            self.gui.update_display("Dealer wins!")
+        elif self.game.dealer_hand.calculate_value() < self.game.player_hand.calculate_value():
+            self.gui.update_display("Player wins!")
         else:
-            #push
-            pass
+            self.gui.update_display("It's a tie!")
 
-
+    def update_gui(self):
+        """
+        Update the GUI with the current state of the game.
+        """
+        player_hand = self.game.player_hand
+        dealer_hand = self.game.dealer_hand
+        self.gui.update_display(f"Player: {player_hand} Dealer: {dealer_hand}")
 
 if __name__ == "__main__":
-    BG = BlackjackGame()
-    BG.before_game()
-    BG.start_game()
-    print(f"dealer hand: {BG.dealer_hand}, player hand: {BG.player_hand}")
-    BG.player_turn()
-    BG.dealer_turn()
-    print(f"dealer hand: {BG.dealer_hand}, player hand: {BG.player_hand}")
-    print(f"dealer value: {BG.dealer_hand.calculate_value()}, player value: {BG.player_hand.calculate_value()}")
-    BG.check_winner()
-    print(BG.player.balance)
+    root = tk.Tk()
+    gui = BlackjackGUI(root)
+    controller = BlackjackController(gui)
+    root.mainloop()
