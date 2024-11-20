@@ -25,9 +25,6 @@ class BlackjackGUI:
         self.info_label = tk.Label(self.root, text="Welcome to Blackjack!", font=("Arial", 16))
         self.info_label.pack()
 
-        self.text = tk.Label(self.root, font=("Arial",14))
-        self.text.pack()
-
         self.deal_button = tk.Button(self.root, text="Deal", command=self.deal)
         self.deal_button.pack()
 
@@ -65,7 +62,7 @@ class BlackjackGUI:
                 else:
                     print(f"Image not found: {image_path}")
 
-    def update_display(self, message, text1=None):
+    def update_display(self, message):
         """
         Update the info label with a message.
 
@@ -73,9 +70,6 @@ class BlackjackGUI:
             message (str): The message to display.
         """
         self.info_label.config(text=message)
-        if text1 is not None:
-            self.text.config(text=text1)
-        
 
     def show_card(self, card, player=True):
         """
@@ -85,6 +79,7 @@ class BlackjackGUI:
             card (str): The card to display (e.g., '2_of_hearts').
             player (bool, optional): True if the card is for the player, False if for the dealer. Defaults to True.
         """
+        print(f"Showing card: {card} for {'player' if player else 'dealer'}")
         card_image = self.card_images.get(card)
         if card_image:
             if player:
@@ -119,6 +114,11 @@ class BlackjackGUI:
         Handle the Double button click event.
         """
         self.controller.player_action("double")
+
+    def update_gui(self):
+        player_hand = self.game.player_hand
+        dealer_hand = self.game.dealer_hand
+        self.gui.update_display(f"Player: {player_hand} Dealer: {dealer_hand}")
 
 if __name__ == "__main__":
     root = tk.Tk()
