@@ -41,9 +41,7 @@ class BlackjackGame:
     def player_turn(self, action):
         """Player's turn in BlackjackGame.
         """
-        if self.player.play_action(self.player_hand, self.deck, action) != None:
-            #talk to parent controller class somehow
-            pass
+        return self.player.play_action(self.player_hand, self.deck, action)
 
     def dealer_turn(self):
         """Dealer's turn in BlackjackGame.

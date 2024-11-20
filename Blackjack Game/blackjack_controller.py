@@ -12,14 +12,14 @@ class BlackjackController:
     def player_action(self, action):
         """Calls the correct player action after their input"""
         if action == "deal":
-            self.game.start_game()
+            cardsshown = self.game.start_game()
             self.game.player_turn("deal")
             self.update_gui("")
             if self.game.player.blackjack == True:
                 self.dealer_turn()
         elif action == "hit":
-            card = self.game.player_turn("hit")
-            self.gui.show_card(card)
+            cardshown = self.game.player_turn("hit")
+            self.gui.show_card(cardshown)
             self.update_gui()
             if self.game.player.is_busted() or self.game.player_hand.calculate_value() == 21:
                 self.dealer_turn()
@@ -28,7 +28,8 @@ class BlackjackController:
             self.update_gui()
             self.dealer_turn()
         elif action == "double":
-            self.game.player_turn("double")
+            cardshown = self.game.player_turn("double")
+            self.gui.show_card(cardshown)
             self.update_gui()
             self.dealer_turn()
 
