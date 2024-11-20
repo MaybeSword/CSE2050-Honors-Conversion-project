@@ -54,7 +54,7 @@ class BlackjackGUI:
         Load card images from the Cards directory and store them in a dictionary.
         """
         suits = ['hearts', 'diamonds', 'clubs', 'spades']
-        values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'queen', 'king', 'ace']
+        values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
         for suit in suits:
             for value in values:
                 image_path = os.path.join(os.path.dirname(__file__), f"Cards/{value}_of_{suit}.png")
@@ -84,17 +84,12 @@ class BlackjackGUI:
             card (str): The card to display (e.g., '2_of_hearts').
             player (bool, optional): True if the card is for the player, False if for the dealer. Defaults to True.
         """
-        card_image = self.card_images.get(card)
+        card_image = self.card_images[f"{card.rank}_of_{card.suit}"]
         if card_image:
-            if player:
-                label = tk.Label(self.player_cards_frame, image=card_image)
-                label.image = card_image  # Keep a reference to avoid garbage collection
-                label.pack(side=tk.LEFT)
-            else:
-                label = tk.Label(self.dealer_cards_frame, image=card_image)
-                label.image = card_image  # Keep a reference to avoid garbage collection
-                label.pack(side=tk.LEFT)
-
+            label = tk.Label(self.player_cards_frame, image=card_image)
+            label.image = card_image  # Keep a reference to avoid garbage collection
+            label.pack(side=tk.LEFT, expand="yes")
+    
     def deal(self):
         """
         Handle the Deal button click event.
