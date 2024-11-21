@@ -86,9 +86,14 @@ class BlackjackGUI:
         """
         card_image = self.card_images[f"{card.rank}_of_{card.suit}"]
         if card_image:
-            label = tk.Label(self.player_cards_frame, image=card_image)
-            label.image = card_image  # Keep a reference to avoid garbage collection
-            label.pack(side=tk.LEFT, expand="yes")
+            if player:
+                label = tk.Label(self.player_cards_frame, image=card_image)
+                label.image = card_image  # Keep a reference to avoid garbage collection
+                label.pack(side=tk.LEFT)
+            else:
+                label = tk.Label(self.dealer_cards_frame, image=card_image)
+                label.image = card_image  # Keep a reference to avoid garbage collection
+                label.pack(side=tk.RIGHT)
     
     def deal(self):
         """
