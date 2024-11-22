@@ -40,8 +40,8 @@ class BlackjackController:
     def dealer_turn(self):
         hand_shown = self.game.dealer_turn()
         if hand_shown is not None:
-            for card in hand_shown.cards:
-                self.gui.show_card(card, player=False)
+            for i in range(2, len(hand_shown.cards)):
+                self.gui.show_card(hand_shown.cards[i], player=False)
         self.update_gui()
         self.determine_winner()
 
