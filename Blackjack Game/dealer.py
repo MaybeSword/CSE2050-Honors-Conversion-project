@@ -36,6 +36,7 @@ class Dealer:
             self.busted = True
         if len(hand.cards) == 2 and hand.calculate_value() == 21:
             self.blackjack = True
+        return hand
         
         
     

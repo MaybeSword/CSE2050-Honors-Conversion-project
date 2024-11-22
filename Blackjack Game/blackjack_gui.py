@@ -41,10 +41,10 @@ class BlackjackGUI:
         self.double_button.pack()
 
         self.player_cards_frame = tk.Frame(self.root)
-        self.player_cards_frame.pack()
+        self.player_cards_frame.pack(side=tk.LEFT)
 
         self.dealer_cards_frame = tk.Frame(self.root)
-        self.dealer_cards_frame.pack()
+        self.dealer_cards_frame.pack(side=tk.RIGHT)
 
         self.card_images = {}
         self.load_card_images()

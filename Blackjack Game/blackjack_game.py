@@ -37,6 +37,7 @@ class BlackjackGame:
         self.player_hand.add_card(self.deck.deal())
         self.dealer_hand.add_card(self.deck.deal())
         self.player_hand.add_card(self.deck.deal())
+        return self.dealer_hand, self.player_hand
 
     def player_turn(self, action):
         """Player's turn in BlackjackGame.
@@ -48,7 +49,8 @@ class BlackjackGame:
         """
         self.dealer_hand.cards[0].faceup = True
         if not self.player.busted:
-            self.dealer.play_turn(self.dealer_hand, self.deck)
+            return self.dealer.play_turn(self.dealer_hand, self.deck)
+        return None
         
 
     def check_winner(self):
