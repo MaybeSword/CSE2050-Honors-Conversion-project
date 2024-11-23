@@ -50,7 +50,7 @@ class BlackjackGame:
         self.dealer_hand.cards[0].faceup = True
         if not self.player.busted:
             return self.dealer.play_turn(self.dealer_hand, self.deck)
-        return None
+        return self.dealer_hand
         
 
     def check_winner(self):

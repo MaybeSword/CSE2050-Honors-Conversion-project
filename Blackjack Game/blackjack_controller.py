@@ -12,6 +12,7 @@ class BlackjackController:
     def player_action(self, action):
         """Calls the correct player action after their input"""
         if action == "deal":
+            self.gui.reset_frames()
             dealercards, playercards = self.game.start_game()
             for card in dealercards.cards:
                 self.gui.show_card(card, player=False)
@@ -39,9 +40,9 @@ class BlackjackController:
 
     def dealer_turn(self):
         hand_shown = self.game.dealer_turn()
-        if hand_shown is not None:
-            for i in range(2, len(hand_shown.cards)):
-                self.gui.show_card(hand_shown.cards[i], player=False)
+        self.gui.reset_frames(dealer_only=True)
+        for card in hand_shown.cards:
+            self.gui.show_card(card, player=False)
         self.update_gui()
         self.determine_winner()
 

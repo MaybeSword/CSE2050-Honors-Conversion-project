@@ -49,6 +49,14 @@ class BlackjackGUI:
         self.card_images = {}
         self.load_card_images()
 
+    def reset_frames(self, dealer_only=False):
+        for widget in self.dealer_cards_frame.winfo_children():
+            widget.destroy()
+        if not dealer_only:
+            for widget in self.player_cards_frame.winfo_children():
+                widget.destroy()
+
+
     def load_card_images(self):
         """
         Load card images from the Cards directory and store them in a dictionary.
@@ -64,6 +72,13 @@ class BlackjackGUI:
                     self.card_images[f"{value}_of_{suit}"] = ImageTk.PhotoImage(image)
                 else:
                     print(f"Image not found: {image_path}")
+        image_path = os.path.join(os.path.dirname(__file__), f"Cards/back_of_card.png")
+        if os.path.exists(image_path):
+            image = Image.open(image_path)
+            image = image.resize((100, 150), Image.LANCZOS)
+            self.card_images[f"back_of_card"] = ImageTk.PhotoImage(image)
+        else:
+            print(f"Image not found: {image_path}")
 
     def update_display(self, message, text1=None):
         """
@@ -84,16 +99,21 @@ class BlackjackGUI:
             card (str): The card to display (e.g., '2_of_hearts').
             player (bool, optional): True if the card is for the player, False if for the dealer. Defaults to True.
         """
-        card_image = self.card_images[f"{card.rank}_of_{card.suit}"]
-        if card_image:
-            if player:
-                label = tk.Label(self.player_cards_frame, image=card_image)
-                label.image = card_image  # Keep a reference to avoid garbage collection
-                label.pack(side=tk.LEFT)
-            else:
-                label = tk.Label(self.dealer_cards_frame, image=card_image)
-                label.image = card_image  # Keep a reference to avoid garbage collection
-                label.pack(side=tk.RIGHT)
+        if not card.faceup:
+            label = tk.Label(self.dealer_cards_frame, image = self.card_images["back_of_card"])
+            label.image = self.card_images["back_of_card"]
+            label.pack(side=tk.RIGHT)
+        else:
+            card_image = self.card_images[f"{card.rank}_of_{card.suit}"]
+            if card_image:
+                if player:
+                    label = tk.Label(self.player_cards_frame, image=card_image)
+                    label.image = card_image  # Keep a reference to avoid garbage collection
+                    label.pack(side=tk.LEFT)
+                else:
+                    label = tk.Label(self.dealer_cards_frame, image=card_image)
+                    label.image = card_image  # Keep a reference to avoid garbage collection
+                    label.pack(side=tk.RIGHT)
     
     def deal(self):
         """
