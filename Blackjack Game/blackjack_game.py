@@ -78,7 +78,7 @@ class BlackjackGame:
             self.player.update_balance(loss=False)
             return "Player wins!"
         else:
-            return "It's a tie!"
+            return "Push!"
 
 class BlackjackGameCC:
     """A Blackjack game, implementing counting cards.
