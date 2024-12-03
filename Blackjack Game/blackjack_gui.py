@@ -19,6 +19,7 @@ class BlackjackGUI:
         self.root = root
         self.root.title("Blackjack")
         self.root.geometry("800x800")  # Set the default window size to 800x800
+        self.root.configure(bg="green")
         
         self.controller = BlackjackController(self)
 
