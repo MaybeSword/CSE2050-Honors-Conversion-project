@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 from blackjack_controller import BlackjackController
 from PIL import Image, ImageTk
-import os
+import pyglet, os
 
 class BlackjackGUI:
     """
@@ -16,6 +16,7 @@ class BlackjackGUI:
         Args:
             root (tk.Tk): The root window of the Tkinter application.
         """
+        pyglet.font.add_file('PokerInOctoberDemo-Dxm3.otf')
         self.root = root
         self.root.title("Blackjack")
         self.root.geometry("800x800")  # Set the default window size to 800x800
@@ -23,7 +24,7 @@ class BlackjackGUI:
         
         self.controller = BlackjackController(self)
 
-        self.info_label = tk.Label(self.root, text="Welcome to Blackjack!", font=("Arial", 16), fg="white")
+        self.info_label = tk.Label(self.root, text="Welcome to Blackjack!", font=("PokerInOctoberDemo-Dxm3", 16), fg="white")
         self.info_label.configure(bg = "#35654D")
         self.info_label.pack()
 
