@@ -23,28 +23,36 @@ class BlackjackGUI:
         
         self.controller = BlackjackController(self)
 
-        self.info_label = tk.Label(self.root, text="Welcome to Blackjack!", font=("Arial", 16))
+        self.info_label = tk.Label(self.root, text="Welcome to Blackjack!", font=("Arial", 16), fg="white")
+        self.info_label.configure(bg = "#35654D")
         self.info_label.pack()
 
-        self.text = tk.Label(self.root, font=("Arial",14))
+        self.text = tk.Label(self.root, font=("Arial",14), fg="white")
+        self.text.configure(bg = "#35654D")
         self.text.pack()
 
-        self.deal_button = tk.Button(self.root, text="Deal", command=self.deal)
+        self.deal_button = tk.Button(self.root, text="Deal", command=self.deal, fg="white")
+        self.deal_button.configure(bg="#743430")
         self.deal_button.pack()
 
-        self.hit_button = tk.Button(self.root, text="Hit", command=self.hit)
+        self.hit_button = tk.Button(self.root, text="Hit", command=self.hit, fg="white")
+        self.hit_button.configure(bg="#743430")
         self.hit_button.pack()
 
-        self.stand_button = tk.Button(self.root, text="Stand", command=self.stand)
+        self.stand_button = tk.Button(self.root, text="Stand", command=self.stand, fg="white")
+        self.stand_button.configure(bg="#743430")
         self.stand_button.pack()
 
-        self.double_button = tk.Button(self.root, text="Double", command=self.double)
+        self.double_button = tk.Button(self.root, text="Double", command=self.double, fg="white")
+        self.double_button.configure(bg="#743430")
         self.double_button.pack()
 
         self.player_cards_frame = tk.Frame(self.root)
+        self.text.configure(bg = "#35654D")
         self.player_cards_frame.pack(side=tk.LEFT)
 
         self.dealer_cards_frame = tk.Frame(self.root)
+        self.text.configure(bg = "#35654D")
         self.dealer_cards_frame.pack(side=tk.RIGHT)
 
         self.card_images = {}
