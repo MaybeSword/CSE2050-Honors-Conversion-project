@@ -16,7 +16,8 @@ class BlackjackGUI:
         Args:
             root (tk.Tk): The root window of the Tkinter application.
         """
-        pyglet.font.add_file('PokerInOctoberDemo-Dxm3.otf')
+        pyglet.font.add_file('PokerFont.otf')
+        pyglet.font.add_file('PokerKings.ttf')
         self.root = root
         self.root.title("Blackjack")
         self.root.geometry("800x800")  # Set the default window size to 800x800
@@ -24,15 +25,15 @@ class BlackjackGUI:
 
         self.controller = BlackjackController(self)
 
-        self.info_label = tk.Label(self.root, text="Welcome to Blackjack!", font=("Times New Roman", 16), fg="white")
+        self.info_label = tk.Label(self.root, text="Welcome to Blackjack!", font=("Poker Kings", 26), fg="white")
         self.info_label.configure(bg = "#35654D")
         self.info_label.pack()
 
-        self.text = tk.Label(self.root, font=("Times New Roman",14), fg="white")
+        self.text = tk.Label(self.root, font=("Poker In October Demo",18), fg="white")
         self.text.configure(bg = "#35654D")
         self.text.pack()
 
-        self.balance = tk.Label(self.root, font=("Times New Roman", 14), fg="yellow", bg="#35654D", text="Balance: 2500")
+        self.balance = tk.Label(self.root, font=("Poker In October Demo", 14), fg="yellow", bg="#35654D", text="Balance: 2500")
         self.balance.pack()
 
         self.deal_button = tk.Button(self.root, text="Deal", font=("Times New Roman", 12), command=self.deal, fg="white")
@@ -51,7 +52,7 @@ class BlackjackGUI:
         self.double_button.configure(bg="#743430")
         self.double_button.pack()
 
-        self.bet_label = tk.Label(self.root, text="Bet:", font=("Times New Roman", 12), fg="white")
+        self.bet_label = tk.Label(self.root, text="Bet:", font=("Poker In October Demo", 14), fg="white")
         self.bet_label.configure(bg="#35654D")
         self.bet_label.pack()
 
@@ -147,6 +148,7 @@ class BlackjackGUI:
         """
         Handle the Deal button click event.
         """
+        self.info_label.configure(font=("Poker In October Demo", 18))
         betsizing = int(self.get_input())
         self.controller.bet_game(betsizing)
         self.controller.player_action("deal")
