@@ -46,7 +46,7 @@ class Player:
             deck (Deck): The Deck we are counting.
         """
         if self._bet == 0:
-            self._bet = 200
+            self._bet = 500
         
         if deck.count> 0:
             if self._bet+50 < self.balance:
