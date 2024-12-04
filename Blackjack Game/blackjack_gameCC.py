@@ -27,10 +27,12 @@ class BlackjackGameCC:
     def start_game(self):
         """Initial phase of game. First four cards dealt.
         """
-        self.dealer_hand.add_card(self.deck.deal(faceup=False))
-        self.player_hand.add_card(self.deck.deal())
-        self.dealer_hand.add_card(self.deck.deal())
-        self.player_hand.add_card(self.deck.deal())
+        self.dealer.hand = Hand()
+        self.player.hand = Hand()
+        self.dealer.hand.add_card(self.deck.deal(faceup=False))
+        self.player.hand.add_card(self.deck.deal())
+        self.dealer.hand.add_card(self.deck.deal())
+        self.player.hand.add_card(self.deck.deal())
 
     def player_turn(self):
         """Optimal counting cards algorithm's turn to play.
@@ -40,9 +42,9 @@ class BlackjackGameCC:
     def dealer_turn(self):
         """Dealer's turn in Blackjack.
         """
-        self.dealer_hand.cards[0].faceup = True
+        self.dealer.hand.cards[0].faceup = True
         if not self.player.busted:
-            self.dealer.play_turn(self.dealer_hand, self.deck)
+            self.dealer.play_turn(self.dealer.hand, self.deck)
         
 
     def check_winner(self):
@@ -56,7 +58,7 @@ class BlackjackGameCC:
                 self.player.update_balance(loss=False, blackjack=True)
                 self.wins+=1
                 return "Player wins + blackjack!"
-        elif self.dealer.blackjack and self.player_hand.calculate_value() == 21:
+        elif self.dealer.blackjack and self.player.hand.calculate_value() == 21:
             self.player.update_balance(loss=True)
             self.losses+=1
             return "Dealer wins!"
@@ -68,11 +70,11 @@ class BlackjackGameCC:
             self.player.update_balance(loss=False)
             self.wins +=1
             return "Dealer busts! Player wins."
-        elif self.dealer_hand.calculate_value() > self.player_hand.calculate_value():
+        elif self.dealer.hand.calculate_value() > self.player.hand.calculate_value():
             self.player.update_balance(loss=True)
             self.losses += 1
             return "Dealer wins!"
-        elif self.dealer_hand.calculate_value() < self.player_hand.calculate_value():
+        elif self.dealer.hand.calculate_value() < self.player.hand.calculate_value():
             self.player.update_balance(loss=False)
             self.wins +=1
             return "Player wins!"
@@ -80,8 +82,8 @@ class BlackjackGameCC:
             return "Push!"
 
 if __name__ == "__main__":
+    BG = BlackjackGameCC()
     for i in range(500):
-        BG = BlackjackGameCC()
         BG.before_game()
         BG.start_game()
         BG.player_turn()
@@ -91,5 +93,5 @@ if __name__ == "__main__":
     print (f"Losses = {BG.losses}")
     winrate = BG.wins/BG.games
     print (f"Win Rate = {winrate}")
-    print (f"Net Profit = {BG.player.balance}")
+    print (f"Net Profit = {BG.player.balance-500}")
     

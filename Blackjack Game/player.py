@@ -157,18 +157,18 @@ class Player:
                     decision = 'hit'
 
         if self.hand.calculate_value() == 10:
-            if dealer.hand.get_upcard() == 10:
+            if dealer.get_upcard() == 10:
                 decision = 'double' if deck.count>=4 else 'hit'
 
         if self.hand.calculate_value() == 16:
-            if dealer.hand.get_upcard() == 10:
+            if dealer.get_upcard() == 10:
                 if deck.count >= 0:
                     decision = 'stand'
                 else:
                     decision = 'hit'
         
         if self.hand.calculate_value() == 15:
-            if dealer.hand.get_upcard() == 10:
+            if dealer.get_upcard() == 10:
                 if deck.count >= 4:
                     decision = 'stand'
                 else:
@@ -177,23 +177,23 @@ class Player:
         if self.hand.check_pair():
             if len(self.hand.cards) == 2:
                 if 10 in self.hand:
-                    if dealer.hand.get_upcard() == 5 or dealer.hand.get_upcard() == 6:
+                    if dealer.get_upcard() == 5 or dealer.get_upcard() == 6:
                         if deck.count>=5:
                             decision = 'split'
 
         if self.hand.check_pair():
             if len(self.hand.cards) == 2:
                 if 4 in self.hand:
-                    if dealer.hand.get_upcard() == 5 or dealer.hand.get_upcard() == 6:
+                    if dealer.get_upcard() == 5 or dealer.get_upcard() == 6:
                         if deck.count>=4:
                             decision = 'split'
 
         if decision == 'hit': 
-            self.hand.add_card()
+            self.hand.add_card(deck.deal())
             self.playCC(deck, dealer)
-        if decision == 'split': 
-            self.hand.split()
-            #call playCC on both hands
+        # if decision == 'split': 
+        #     self.hand.split()
+        #     #call playCC on both hands
         if decision == 'double': 
             self._bet*=2
-            self.hand.add_card()
+            self.hand.add_card(deck.deal())
