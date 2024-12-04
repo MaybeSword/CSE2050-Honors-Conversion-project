@@ -56,7 +56,13 @@ class BlackjackController:
         result = self.game.check_winner()
         self.update_gui(text=result)
         self.gui.update_balance(self.game.player.balance)
+        if self.game.player.balance == 0:
+            self.update_zero_balance()
         # self.gui.update_display(result)
+
+    def update_zero_balance(self):
+        self.gui.update_zero()
+        self.game.player.balance = 2500
 
     def update_gui(self, text=None):
         player_hand = self.game.player_hand

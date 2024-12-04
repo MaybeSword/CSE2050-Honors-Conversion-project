@@ -24,6 +24,7 @@ class BlackjackGUI:
         self.root.title("Blackjack")
         self.root.geometry("1200x800")  # Set the default window size to 800x800
         self.root.configure(bg="#35654D")
+        self.gameover=False
 
 
         self.controller = BlackjackController(self)
@@ -179,16 +180,29 @@ class BlackjackGUI:
         """
         Handle the Deal button click event.
         """
-        self.error_message.configure(text="")
-        self.error_message.pack()
-        self.info_label.configure(font=("Poker In October Demo", 18))
-        betsizing = int(self.get_input())
-        if betsizing > self.controller.game.player.balance:
-            self.show_error()
+        if not self.gameover:
+            self.error_message.configure(text="")
+            self.update_balance(self.controller.game.player.balance)
+            self.error_message.pack()
+            self.info_label.configure(font=("Poker In October Demo", 18))
+            betsizing = int(self.get_input())
+            if betsizing > self.controller.game.player.balance:
+                self.show_error()
+            else:
+                self.controller.bet_game(betsizing)
+                self.controller.player_action("deal")
         else:
-            self.controller.bet_game(betsizing)
-            self.controller.player_action("deal")
+            self.clear_window()
+            self.__init__(self.root)
 
+    def clear_window(self):
+        for widget in self.root.winfo_children():
+            widget.destroy()
+
+    def update_zero(self):
+        self.info_label.configure(text="Game Over! Press Deal to play again!")
+        self.gameover = True
+        self.info_label.pack()
 
     def hit(self):
         """
