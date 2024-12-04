@@ -197,3 +197,4 @@ class Player:
         if decision == 'double': 
             self._bet*=2
             self.hand.add_card(deck.deal())
+            return "doubled"

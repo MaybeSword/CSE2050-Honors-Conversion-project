@@ -38,7 +38,7 @@ class BlackjackGameCC:
     def player_turn(self):
         """Optimal counting cards algorithm's turn to play.
         """
-        self.player.playCC(self.deck, self.dealer)
+        return self.player.playCC(self.deck, self.dealer)
 
     def dealer_turn(self):
         """Dealer's turn in Blackjack.
@@ -87,11 +87,11 @@ if __name__ == "__main__":
     for i in range(500):
         BG.before_game()
         BG.start_game()
-        if i == 488:
-            pass
-        BG.player_turn()
+        doubled = BG.player_turn()
         BG.dealer_turn()
         BG.check_winner()
+        if doubled == "doubled":
+            BG.player._bet /= 2
     print (f"Wins = {BG.wins}")
     print (f"Losses = {BG.losses}")
     winrate = BG.wins/BG.games
