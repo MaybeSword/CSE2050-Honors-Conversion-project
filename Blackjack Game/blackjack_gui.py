@@ -21,7 +21,7 @@ class BlackjackGUI:
         self.root.title("Blackjack")
         self.root.geometry("800x800")  # Set the default window size to 800x800
         self.root.configure(bg="#35654D")
-        
+
         self.controller = BlackjackController(self)
 
         self.info_label = tk.Label(self.root, text="Welcome to Blackjack!", font=("PokerInOctoberDemo-Dxm3", 16), fg="white")
@@ -31,6 +31,9 @@ class BlackjackGUI:
         self.text = tk.Label(self.root, font=("Arial",14), fg="white")
         self.text.configure(bg = "#35654D")
         self.text.pack()
+
+        self.balance = tk.Label(self.root, font=("Arial", 14), fg="yellow", bg="#35654D", text="Balance: 2500")
+        self.balance.pack()
 
         self.deal_button = tk.Button(self.root, text="Deal", command=self.deal, fg="white")
         self.deal_button.configure(bg="#743430")
@@ -47,6 +50,14 @@ class BlackjackGUI:
         self.double_button = tk.Button(self.root, text="Double", command=self.double, fg="white")
         self.double_button.configure(bg="#743430")
         self.double_button.pack()
+
+        self.bet_label = tk.Label(self.root, text="Bet:", font=("Arial", 12), fg="white")
+        self.bet_label.configure(bg="#35654D")
+        self.bet_label.pack()
+
+        self.entry = tk.Entry(self.root)
+        self.entry.insert(0, 500)
+        self.entry.pack()
 
         self.player_cards_frame = tk.Frame(self.root)
         self.text.configure(bg = "#35654D")
@@ -66,6 +77,8 @@ class BlackjackGUI:
             for widget in self.player_cards_frame.winfo_children():
                 widget.destroy()
 
+    def get_input(self):
+            return self.entry.get()
 
     def load_card_images(self):
         """
@@ -100,6 +113,10 @@ class BlackjackGUI:
         self.info_label.config(text=message)
         if text1 is not None:
             self.text.config(text=text1)
+    
+    def update_balance(self, newBalance):
+        self.balance.configure(text=f"Balance: {newBalance}")
+        self.balance.pack()
 
     def show_card(self, card, player=True):
         """
@@ -124,11 +141,14 @@ class BlackjackGUI:
                     label = tk.Label(self.dealer_cards_frame, image=card_image)
                     label.image = card_image  # Keep a reference to avoid garbage collection
                     label.pack(side=tk.RIGHT)
+
     
     def deal(self):
         """
         Handle the Deal button click event.
         """
+        betsizing = int(self.get_input())
+        self.controller.bet_game(betsizing)
         self.controller.player_action("deal")
 
     def hit(self):

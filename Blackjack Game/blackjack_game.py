@@ -21,11 +21,14 @@ class BlackjackGame:
         self.dealer_hand = Hand()
         self.player_hand = Hand()
     
-    def before_game(self):
+    def before_game(self, betsize):
         """Betting phase of BlackjackGame.
         """
         #prompt player for bet
-        self.player.bet(500) #arbitrary value
+        try: 
+            self.player.bet(betsize)
+        except RuntimeError:
+            pass #fix for future
 
     def start_game(self):
         """Initial 4 cards dealt in BlackjackGame.

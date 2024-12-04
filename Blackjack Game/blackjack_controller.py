@@ -8,6 +8,9 @@ class BlackjackController:
     def __init__(self, gui):
         self.game = BlackjackGame()
         self.gui = gui
+    
+    def bet_game(self, sizing):
+        self.game.before_game(sizing)
 
     def player_action(self, action):
         """Calls the correct player action after their input"""
@@ -49,6 +52,7 @@ class BlackjackController:
     def determine_winner(self):
         result = self.game.check_winner()
         self.update_gui(text=result)
+        self.gui.update_balance(self.game.player.balance)
         # self.gui.update_display(result)
 
     def update_gui(self, text=None):
