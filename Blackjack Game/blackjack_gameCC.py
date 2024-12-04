@@ -27,6 +27,7 @@ class BlackjackGameCC:
     def start_game(self):
         """Initial phase of game. First four cards dealt.
         """
+        self.player.busted, self.dealer.busted, self.player.blackjack, self.dealer.blackjack = False, False, False, False
         self.dealer.hand = Hand()
         self.player.hand = Hand()
         self.dealer.hand.add_card(self.deck.deal(faceup=False))
@@ -86,6 +87,8 @@ if __name__ == "__main__":
     for i in range(500):
         BG.before_game()
         BG.start_game()
+        if i == 488:
+            pass
         BG.player_turn()
         BG.dealer_turn()
         BG.check_winner()
