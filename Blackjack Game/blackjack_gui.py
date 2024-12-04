@@ -56,7 +56,7 @@ class BlackjackGUI:
         self.bet_label.configure(bg="#35654D")
         self.bet_label.pack()
 
-        self.entry = tk.Entry(self.root, font=("Times New Roman", 12), )
+        self.entry = tk.Entry(self.root, font=("Times New Roman", 12), bg="#edd2cd", justify="center", width=10)
         self.entry.insert(0, 500)
         self.entry.pack()
 
