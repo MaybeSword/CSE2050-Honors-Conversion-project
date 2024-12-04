@@ -91,7 +91,7 @@ if __name__ == "__main__":
         BG.dealer_turn()
         BG.check_winner()
         if doubled == "doubled":
-            BG.player._bet /= 2
+            BG.player._bet /= 2 #normally bad practice but for ease and efficiency and reading
     print (f"Wins = {BG.wins}")
     print (f"Losses = {BG.losses}")
     winrate = BG.wins/BG.games
