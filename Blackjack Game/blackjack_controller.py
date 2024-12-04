@@ -37,9 +37,12 @@ class BlackjackController:
             self.dealer_turn()
         elif action == "double":
             cardshown = self.game.player_turn("double")
-            self.gui.show_card(cardshown)
-            self.update_gui()
-            self.dealer_turn()
+            if cardshown is not None:
+                self.gui.show_card(cardshown)
+                self.update_gui()
+                self.dealer_turn()
+            else:
+                self.gui.show_error()
 
     def dealer_turn(self):
         hand_shown = self.game.dealer_turn()

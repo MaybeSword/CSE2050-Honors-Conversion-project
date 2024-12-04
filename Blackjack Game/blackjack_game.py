@@ -45,7 +45,10 @@ class BlackjackGame:
     def player_turn(self, action):
         """Player's turn in BlackjackGame.
         """
-        return self.player.play_action(self.player_hand, self.deck, action)
+        try:
+            return self.player.play_action(self.player_hand, self.deck, action)
+        except RuntimeError:
+            return None
 
     def dealer_turn(self):
         """Dealer's turn in BlackjackGame.
