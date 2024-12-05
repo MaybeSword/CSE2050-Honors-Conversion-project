@@ -75,9 +75,3 @@ class BlackjackController:
             else:
                 self.gui.update_display(f"Player: {player_hand} ({player_hand.calculate_value()}) Dealer: {dealer_hand} ({dealer_hand.calculate_value()})", text)
 
-
-if __name__ == "__main__":
-    root = tk.Tk()
-    gui = BlackjackGUI(root)
-    controller = BlackjackController(gui)
-    root.mainloop()
