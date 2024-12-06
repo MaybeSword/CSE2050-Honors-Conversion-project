@@ -1,4 +1,7 @@
-from blackjack_controller import BlackjackController
+import tkinter as tk
+from blackjack_gui import BlackjackGUI
 
 if __name__ == "__main__":
-    BlackjackController()
+    root = tk.Tk()
+    app = BlackjackGUI(root)
+    root.mainloop()
